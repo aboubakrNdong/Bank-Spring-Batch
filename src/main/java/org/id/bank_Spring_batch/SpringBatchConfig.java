@@ -11,16 +11,9 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.LineMapper;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.mapping.DefaultLineMapper;
-import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
@@ -57,34 +50,6 @@ public class SpringBatchConfig {
                 .start(transactionStep1())
                 .build();
     }
-
-    // configuration de ItemReader
-
-    @Bean
-    public FlatFileItemReader<BankTransaction> flatFileItemReader(@Value("${inputFile}")Resource inputResource) {
-        FlatFileItemReader<BankTransaction> fileItemReader =  new FlatFileItemReader<>();
-        fileItemReader.setName("FFIR1");
-        fileItemReader.setLinesToSkip(1);
-        fileItemReader.setResource(inputResource);
-        fileItemReader.setLineMapper(lineMapper());
-        return fileItemReader;
-    }
-
-    private LineMapper<BankTransaction> lineMapper() {
-        DefaultLineMapper<BankTransaction> lineMapper =  new DefaultLineMapper<>();
-        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-        lineTokenizer.setDelimiter(",");
-        lineTokenizer.setStrict(false);
-        lineTokenizer.setNames("id","accoundID", "strTransactionDate","transactionType", "amount");
-        BeanWrapperFieldSetMapper fieldSetMapper = new BeanWrapperFieldSetMapper();
-        fieldSetMapper.setTargetType(BankTransaction.class);
-        lineMapper.setFieldSetMapper(fieldSetMapper);
-        return lineMapper;
-    }
-
-    //Fin  configuration de ItemReader
-
-
 
 
 }
