@@ -5,9 +5,9 @@ import org.id.bank_Spring_batch.repository.BankTransactionRepository;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-
+@Component
 public class BankTransactionItemWriter implements ItemWriter<BankTransaction> {
 
     @Autowired
@@ -16,7 +16,7 @@ public class BankTransactionItemWriter implements ItemWriter<BankTransaction> {
 
     @Override
     public void write(Chunk<? extends BankTransaction> chunk) throws Exception {
-        bankTransactionRepository.saveAll(list);
+        bankTransactionRepository.saveAll(chunk);
 
     }
 }
