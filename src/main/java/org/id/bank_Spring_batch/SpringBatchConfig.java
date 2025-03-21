@@ -16,6 +16,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import static org.id.bank_Spring_batch.utils.Constants.*;
+
+
+
 @Configuration
 @EnableBatchProcessing
 
@@ -35,8 +39,8 @@ public class SpringBatchConfig {
 
     @Bean
     public Step transactionStep1() {
-        return new StepBuilder("ETL-Transaction-File-Load", jobRepository)
-                .<BankTransaction, BankTransaction>chunk(100,transactionManager)
+        return new StepBuilder(TRANSACTION_STEP_NAME, jobRepository)
+                .<BankTransaction, BankTransaction>chunk(TRANSACTION_CHUNK_SIZE,transactionManager)
                 .reader(bankTransactionItemReader)
                 .processor(itemProcessor)
                 .writer(bankTransactionItemWriter)
@@ -45,7 +49,7 @@ public class SpringBatchConfig {
 
     @Bean
     public Job transactionJob() {
-        return new JobBuilder("ETL-Load", jobRepository)
+        return new JobBuilder(ETL_JOB_NAME, jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .start(transactionStep1())
                 .build();
