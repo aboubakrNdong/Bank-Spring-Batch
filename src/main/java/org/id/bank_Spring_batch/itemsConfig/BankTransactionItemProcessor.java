@@ -17,6 +17,10 @@ public class BankTransactionItemProcessor implements ItemProcessor<BankTransacti
     public BankTransaction process(BankTransaction bankTransaction) throws Exception {
         Date transactionDate = dateFormat.parse(bankTransaction.getStrTransactionDate());
         bankTransaction.setTransactionDate(transactionDate);
+        System.out.println("data has been processed");
+        System.out.println("data has been processed, in my way");
+
+
 
         return bankTransaction;
     }

@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Cursor AI rules
+*.mdc
+cursor-rules/
+.cursor/
