@@ -13,7 +13,6 @@ public class BankTransactionItemWriter implements ItemWriter<BankTransaction> {
     @Autowired
     private BankTransactionRepository bankTransactionRepository;
 
-
     @Override
     public void write(Chunk<? extends BankTransaction> chunk) throws Exception {
         bankTransactionRepository.saveAll(chunk);
