@@ -34,7 +34,7 @@ public class SpringBatchConfig {
     @Autowired
     private ItemWriter<BankTransaction> bankTransactionItemWriter;
     @Autowired
-    private ItemProcessor<BankTransaction, BankTransaction> itemProcessor;
+    private ItemProcessor<BankTransaction, BankTransaction> bankTransactionItemProcessor;
 
 
     @Bean
@@ -42,7 +42,7 @@ public class SpringBatchConfig {
         return new StepBuilder(TRANSACTION_STEP_NAME, jobRepository)
                 .<BankTransaction, BankTransaction>chunk(TRANSACTION_CHUNK_SIZE,transactionManager)
                 .reader(bankTransactionItemReader)
-                .processor(itemProcessor)
+                .processor(bankTransactionItemProcessor)
                 .writer(bankTransactionItemWriter)
                 .build();
     }
