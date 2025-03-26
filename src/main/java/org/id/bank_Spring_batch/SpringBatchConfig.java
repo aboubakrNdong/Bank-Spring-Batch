@@ -21,7 +21,7 @@ import static org.id.bank_Spring_batch.utils.Constants.*;
 
 
 @Configuration
-@EnableBatchProcessing
+//@EnableBatchProcessing
 
 public class SpringBatchConfig {
 
