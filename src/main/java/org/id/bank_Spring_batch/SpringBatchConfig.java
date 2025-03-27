@@ -3,7 +3,6 @@ package org.id.bank_Spring_batch;
 import org.id.bank_Spring_batch.model.BankTransaction;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
@@ -28,7 +27,6 @@ import org.id.bank_Spring_batch.itemsConfig.BankTransactionItemProcessor;
 
 
 @Configuration
-//@EnableBatchProcessing
 
 public class SpringBatchConfig {
 
@@ -40,8 +38,8 @@ public class SpringBatchConfig {
     private ItemReader<BankTransaction> bankTransactionItemReader;
     @Autowired
     private ItemWriter<BankTransaction> bankTransactionItemWriter;
-    @Autowired
-    private ItemProcessor<BankTransaction, BankTransaction> bankTransactionItemProcessor;
+   // @Autowired
+   // private ItemProcessor<BankTransaction, BankTransaction> bankTransactionItemProcessor;
 
     @Bean
     ItemProcessor<BankTransaction, BankTransaction> bankTransactionItemProcessor1() {
@@ -67,14 +65,12 @@ public class SpringBatchConfig {
 
 
 
-
-
     @Bean
     public Step transactionStep1() {
         return new StepBuilder(TRANSACTION_STEP_NAME, jobRepository)
                 .<BankTransaction, BankTransaction>chunk(TRANSACTION_CHUNK_SIZE,transactionManager)
                 .reader(bankTransactionItemReader)
-                .processor(bankTransactionItemProcessor)
+                .processor(compositeItemProcessor())
                 .writer(bankTransactionItemWriter)
                 .build();
     }
