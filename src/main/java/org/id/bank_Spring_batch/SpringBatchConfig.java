@@ -11,12 +11,19 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import static org.id.bank_Spring_batch.utils.Constants.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.id.bank_Spring_batch.itemsConfig.BankTransactionItemAnalyticsProcessor;
+import org.id.bank_Spring_batch.itemsConfig.BankTransactionItemProcessor;
 
 
 
@@ -35,6 +42,31 @@ public class SpringBatchConfig {
     private ItemWriter<BankTransaction> bankTransactionItemWriter;
     @Autowired
     private ItemProcessor<BankTransaction, BankTransaction> bankTransactionItemProcessor;
+
+    @Bean
+    ItemProcessor<BankTransaction, BankTransaction> bankTransactionItemProcessor1() {
+        return new BankTransactionItemProcessor();
+    }
+
+    @Bean
+    ItemProcessor<BankTransaction, BankTransaction> bankTransactionItemProcessor2() {
+        return new BankTransactionItemAnalyticsProcessor();
+    }
+
+    @Bean
+    public ItemProcessor<BankTransaction, BankTransaction> compositeItemProcessor() {
+        List<ItemProcessor<BankTransaction, BankTransaction>> itemProcessors = new ArrayList<>();
+        itemProcessors.add( bankTransactionItemProcessor1());
+        itemProcessors.add( bankTransactionItemProcessor2());
+
+        CompositeItemProcessor<BankTransaction, BankTransaction> compositeItemProcessor = new CompositeItemProcessor<>();
+        compositeItemProcessor.setDelegates(itemProcessors);
+        return compositeItemProcessor();
+
+    }
+
+
+
 
 
     @Bean

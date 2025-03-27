@@ -1,12 +1,11 @@
 package org.id.bank_Spring_batch.itemsConfig;
 
-
 import org.id.bank_Spring_batch.model.BankTransaction;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 import lombok.Getter;
 
-@Component
+//@Component
 public class BankTransactionItemAnalyticsProcessor implements ItemProcessor<BankTransaction, BankTransaction> {
 
     @Getter
