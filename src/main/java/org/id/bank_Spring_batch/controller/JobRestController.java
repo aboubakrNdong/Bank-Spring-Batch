@@ -1,9 +1,7 @@
 package org.id.bank_Spring_batch.controller;
 
-
 import java.util.HashMap;
 import java.util.Map;
-
 import org.id.bank_Spring_batch.itemsConfig.BankTransactionItemAnalyticsProcessor;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.launch.JobLauncher;
@@ -15,10 +13,14 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionException;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @RestController
 public class JobRestController {
+
+    
 
     @Autowired
     private JobLauncher jobLauncher;
@@ -27,6 +29,9 @@ public class JobRestController {
 
     @Autowired
     private BankTransactionItemAnalyticsProcessor bankTransactionItemAnalyticsProcessor;
+
+    private static final Logger logger = LoggerFactory.getLogger(JobRestController.class);
+
 
     @GetMapping("/startJob")
     public BatchStatus load() throws JobExecutionException {
@@ -37,7 +42,7 @@ public class JobRestController {
 
         JobExecution jobExecution = jobLauncher.run(job, jobParameters);
         while (jobExecution.isRunning()) {
-            System.out.println("...Job is running...please wait..");
+            logger.info("...Job is running...please wait..");
         }
         return jobExecution.getStatus();
     }

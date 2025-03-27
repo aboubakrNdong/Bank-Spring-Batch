@@ -59,7 +59,7 @@ public class SpringBatchConfig {
 
         CompositeItemProcessor<BankTransaction, BankTransaction> compositeItemProcessor = new CompositeItemProcessor<>();
         compositeItemProcessor.setDelegates(itemProcessors);
-        return compositeItemProcessor();
+        return compositeItemProcessor;
 
     }
 
