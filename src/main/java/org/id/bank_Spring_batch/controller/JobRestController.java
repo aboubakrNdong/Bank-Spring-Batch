@@ -1,5 +1,6 @@
 package org.id.bank_Spring_batch.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import org.id.bank_Spring_batch.itemsConfig.BankTransactionItemAnalyticsProcessor;
@@ -36,8 +37,8 @@ public class JobRestController {
     }
 
     @GetMapping("/analytics")
-    public ResponseEntity<Map<String, Double>> getAnalytics() {
-        Map<String, Double> analytics = new HashMap<>();
+    public ResponseEntity<Map<String, BigDecimal>> getAnalytics() {
+        Map<String, BigDecimal> analytics = new HashMap<>();
         analytics.put("totalCredit", analyticsProcessor.getTotalCredit());
         analytics.put("totalDebit", analyticsProcessor.getTotalDebit());
 

@@ -15,8 +15,6 @@ import org.springframework.core.io.Resource;
 @Configuration
 public class BankTransactionItemReader {
 
-    
-
     @Bean
     public FlatFileItemReader<BankTransaction> flatFileItemReader(@Value("${inputFile}") Resource inputResource) {
         FlatFileItemReader<BankTransaction> fileItemReader = new FlatFileItemReader<>();
@@ -29,13 +27,13 @@ public class BankTransactionItemReader {
 
     private LineMapper<BankTransaction> createLineMapper() {
         DefaultLineMapper<BankTransaction> lineMapper = new DefaultLineMapper<>();
-        
+
         lineMapper.setLineTokenizer(createLineTokenizer());
         lineMapper.setFieldSetMapper(createFieldSetMapper());
-        
+
         return lineMapper;
     }
-    
+
     private DelimitedLineTokenizer createLineTokenizer() {
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setDelimiter(DELIMITER);

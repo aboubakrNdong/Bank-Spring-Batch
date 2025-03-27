@@ -9,7 +9,10 @@ import org.springframework.batch.core.JobExecutionException;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class JobService {
     private static final Logger logger = LoggerFactory.getLogger(JobService.class);
 
