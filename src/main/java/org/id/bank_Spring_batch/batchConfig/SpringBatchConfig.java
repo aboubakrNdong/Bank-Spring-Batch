@@ -1,8 +1,6 @@
-package org.id.bank_Spring_batch;
+package org.id.bank_Spring_batch.batchConfig;
 
 import org.id.bank_Spring_batch.model.BankTransaction;
-import org.id.bank_Spring_batch.itemsConfig.BankTransactionItemAnalyticsProcessor;
-import org.id.bank_Spring_batch.itemsConfig.BankTransactionItemProcessor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;

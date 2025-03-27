@@ -1,4 +1,4 @@
-package org.id.bank_Spring_batch.itemsConfig;
+package org.id.bank_Spring_batch.batchConfig;
 
 import org.id.bank_Spring_batch.model.BankTransaction;
 import org.id.bank_Spring_batch.repository.BankTransactionRepository;
